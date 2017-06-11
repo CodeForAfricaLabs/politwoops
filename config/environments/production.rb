@@ -7,16 +7,17 @@ Politwoops::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
-  config.log_level = :info
+  config.log_level = :debug
+ 
 
   # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  #config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # For nginx:
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
   # If you have no front-end server that supports something like X-Sendfile,
   # just comment this out and Rails will serve the files
@@ -28,17 +29,17 @@ Politwoops::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
-  config.cache_store = :mem_cache_store,
-    "newsapps-vpc.o2zdh0.0001.use1.cache.amazonaws.com",
-    { :namespace => 'politwoops', compress: true }
+  #config.cache_store = :mem_cache_store,
+  #  "newsapps-vpc.o2zdh0.0001.use1.cache.amazonaws.com",
+  #  { :namespace => 'politwoops', compress: true }
     #{ :namespace => 'politwoops', expires_in: 1.day, compress: true }
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_files = false
+  config.serve_static_files = true
 
-  config.action_controller.asset_host = "https://static.propublica.org"
-  config.assets.prefix = "/rails/assets/politwoops"
+  #config.action_controller.asset_host = "https://static.propublica.org"
+  #config.assets.prefix = "/rails/assets/politwoops"
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -56,21 +57,23 @@ Politwoops::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
-  config.propub_url_root = "/politwoops"
-  config.assets.compress = true
+  #config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+  #config.propub_url_root = "/politwoops"
+
+  config.assets.compress =true
   config.assets.compile = true
   config.assets.digest = true
 
   config.paperclip_defaults = {
     :storage => :s3,
-    :s3_permissions => :public_read,
     :path => "/:attachment/:filename",
-    :url => "https://s3.amazonaws.com/pp-projects-static/",
+    :url => ":s3_domain_url",
+    :s3_domain_url => "http://s3-eu-west-1.amazonaws.com/cfa-politwoops-ke/",
+    :s3_region => "eu-west-1",
     :s3_credentials => {
-      :bucket => 'pp-projects-static/politwoops',
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+      :bucket => 'cfa-politwoops-ke',
+      :access_key_id =>ENV['access_key_id'],
+      :secret_access_key => ENV['secret_access_key']
     },
     :interpolations => {
       :base_path => "/images"

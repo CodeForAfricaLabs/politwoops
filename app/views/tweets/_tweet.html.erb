@@ -1,5 +1,4 @@
 <div id="tweet-<%= tweet.id %>" class="tweet">
-
   <a name="<%= tweet.id %>"></a>
 
   <div class="content">
@@ -17,17 +16,15 @@
         <% end %>
     </div>
     <div class="tweet-content">
-
       <p class="tweet-text"><%= format_tweet(tweet).to_s.html_safe %></p>
-
     </div>
 
     <div class="byline">
         <%= byline(tweet) %>
     </div>
-
+    
   </div>
 
   <div class="clear"></div>
-
+    
 </div>

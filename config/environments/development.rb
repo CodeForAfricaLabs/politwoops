@@ -32,12 +32,17 @@ Politwoops::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   config.paperclip_defaults = {
-    storage: :fog,
-    fog_host: "http://localhost:8080",
-    fog_credentials: { provider: "Local", local_root: "#{Rails.root}"},
-    path: "/:attachment/:filename",
-    interpolations: {
-      base_path: "assets"
+    :storage => :s3,
+    :path => "/avatar/:attachment/:filename",
+    :url => ":s3_domain_url",
+    :s3_region => "eu-west-1",
+    :s3_credentials => {
+      :bucket => 'cfa-politwoops-ke',
+      :access_key_id => ENV['access_key_id'],
+      :secret_access_key => ENV['secret_access_key']
+    },
+    :interpolations => {
+      :base_path => "/images"
     }
   }
 end

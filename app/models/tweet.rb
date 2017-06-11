@@ -2,7 +2,6 @@
 class Tweet < ActiveRecord::Base
   belongs_to :politician
 
-
   has_many :tweet_images, :foreign_key => "tweet_id"
 
   scope :with_content, -> { where.not content: nil}
@@ -65,7 +64,7 @@ class Tweet < ActiveRecord::Base
   end
 
   def twoops_url
-    "tweet/#{id}"
+    "/tweet/#{id}"
   end
 
   def twitter_user_url
@@ -74,6 +73,10 @@ class Tweet < ActiveRecord::Base
 
   def twitter_url
     "https://www.twitter.com/#{user_name}/status/#{id}"
+  end
+  
+  def has_images?
+    not self.tweet_images.empty?
   end
 
   def format
