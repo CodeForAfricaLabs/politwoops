@@ -29,6 +29,15 @@ class Tweet < ActiveRecord::Base
     Tweet.find(Tweet.pluck(:id).shuffle.first)
   end
 
+
+  def self.published_in(year, month)
+    where("YEAR(created) = #{year} AND MONTH(created) = #{month}")
+  end
+
+  def self.modified_in(year, month)
+    where("YEAR(modified) = #{year} AND MONTH(modified) = #{month}")
+  end
+  
   def details
     JSON.parse(tweet)
   end
@@ -55,7 +64,7 @@ class Tweet < ActiveRecord::Base
   end
 
   def twoops_url
-    "tweet/#{id}"
+    "/tweet/#{id}"
   end
 
   def twitter_user_url
@@ -64,6 +73,10 @@ class Tweet < ActiveRecord::Base
 
   def twitter_url
     "https://www.twitter.com/#{user_name}/status/#{id}"
+  end
+  
+  def has_images?
+    not self.tweet_images.empty?
   end
 
   def format

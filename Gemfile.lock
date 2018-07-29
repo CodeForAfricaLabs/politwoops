@@ -49,6 +49,8 @@ GEM
       fog (>= 1.8.0)
       mime-types
       unf
+    autoprefixer-rails (7.1.1)
+      execjs
     awesome_print (1.7.0)
     aws-sdk (2.6.22)
       aws-sdk-resources (= 2.6.22)
@@ -63,6 +65,9 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     beanstalk-client (1.1.1)
+    bootstrap (4.0.0.alpha6)
+      autoprefixer-rails (>= 6.0.3)
+      sass (>= 3.4.19)
     buftok (0.2.0)
     builder (3.2.3)
     climate_control (0.2.0)
@@ -73,6 +78,3 @@ GEM
       descendants_tracker (~> 0.0.1)
     comma (3.2.4)
       activesupport (>= 3.0.0)
-    concurrent-ruby (1.0.5)
-    crass (1.0.4)
-    dalli (...
